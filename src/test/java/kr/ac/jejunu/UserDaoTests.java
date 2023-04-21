@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.core.Is.is;
 
 public class UserDaoTests {
@@ -43,6 +44,7 @@ public class UserDaoTests {
         user.setPassword(password);
 
         userDao.insert(user);
+        assertThat(user.getId(),greaterThan(1l));
         User insertedUser = userDao.findById(user.getId());
         assertThat(user.getName(), is(name));
         assertThat(user.getPassword(),is(password));
@@ -51,7 +53,7 @@ public class UserDaoTests {
     public void update() throws SQLException, ClassNotFoundException {
         User user = insertedUser();
         String updatedName = "zzz";
-        String updatedPassword = "0000";
+        String updatedPassword = "1555";
         user.setName(updatedName);
         user.setPassword(updatedPassword);
 
